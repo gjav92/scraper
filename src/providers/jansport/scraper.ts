@@ -103,12 +103,20 @@ const scraper: Scraper = async (request, page) => {
       let url=baseURL+"?variationId="+i.variationId
       let itemGroupId=productCode
       let sizeChartUrl=`http://widget.tangiblee.com/desktop/${productCode.toLowerCase()}-${i.variationId}?domain=www.jansport.com`
+      
+
 
       const variant = new Product(
         productCode+"-"+i.variationId,
         title,
         url,
       )
+
+      await page.goto(sizeChartUrl)
+      let sc=await page.content()
+      if(!(sc.includes("Oh no, 500"))){
+        variant.sizeChartUrls=[sizeChartUrl]
+      }
         
       variant.description = description
       variant.brand = brand
@@ -123,7 +131,8 @@ const scraper: Scraper = async (request, page) => {
       variant.availability = availability
       variant.images = imgset
       variant.videos = videos
-      variant.sizeChartUrls=[sizeChartUrl]
+      
+      //variant.sizeChartUrls=[sizeChartUrl]
       sections.map((section: any) => variant.addAdditionalSection(section))
       products.push(variant)  
     }
