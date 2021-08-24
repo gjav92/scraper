@@ -10,6 +10,9 @@ const scraper: Scraper = async (request, page) => {
   const attrName = await page.$eval("input[name='attrName']",(e: any)=> e.value)
   const baseURL = await page.$eval("link[rel='canonical']",(e: any)=> e.href)
   const productCode = await page.$eval("input[name='productCode']",(e: any)=> e.value)
+  const description = await page.$eval(".desc-container",(e: any)=> e.textContent.trim() || '' )
+
+  
 
   //If the product doesnt have any videos, the variable doesnt exists
   let videos=[]
@@ -66,9 +69,13 @@ const scraper: Scraper = async (request, page) => {
       for(const iz in json){
         let ind
         try{ind=json[iz].i.n}catch{ind=json[iz].n} 
-        // @ts-ignore
-        imgset.push(`https://images.jansport.com/is/image/${ind}?$VFDP-VIEWER-ZOOMVIEW-HERO$&wid=1003&hei=1166&fmt=jpg`)
+        
+          if(ind){
+            // @ts-ignore
+            imgset.push(`https://images.jansport.com/is/image/${ind}?$VFDP-VIEWER-ZOOMVIEW-HERO$&wid=1003&hei=1166&fmt=jpg`)
+          }
       }
+      imgset=[...new Set(imgset)]
       
       //We need the color names in the price json to be uppercase so we can search for it, the color names we gather are in lowercase and the key values in the json are mixed lower/upper
       var key, keys = Object.keys(prices);
@@ -100,7 +107,7 @@ const scraper: Scraper = async (request, page) => {
         url,
       )
         
-      variant.description = i.description
+      variant.description = description
       variant.brand = brand
       variant.currency = currency
       variant.realPrice = lowPrice
