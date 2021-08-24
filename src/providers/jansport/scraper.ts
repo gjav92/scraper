@@ -1,6 +1,7 @@
 import Product from '../../entities/product'
 import Scraper from '../../interfaces/scraper'
 import screenPage from '../../utils/capture'
+import { DESCRIPTION_PLACEMENT } from '../../interfaces/outputProduct'
 
 const scraper: Scraper = async (request, page) => {
   await page.goto(request.pageUrl, { waitUntil: 'networkidle2' })
@@ -38,12 +39,14 @@ const scraper: Scraper = async (request, page) => {
   const currency = await page.$eval("meta[itemprop='priceCurrency']",(e: any)=> e.content)
   const brand = await page.$eval("meta[property='og:brand']",(e: any)=> e.content)
   const bullets = await page.$eval(".swatches-product-details-container",(e: any) => Array.from(e.querySelectorAll("li")).map((i: any)=> i.textContent))
-  const sections = await page.$$eval('.product-details-section', sections =>
-    sections.map((section: any) => [{
+  const sections = (await page.$$eval('.product-details-section', sections =>
+    sections.map((section: any) => ({
         title: section.querySelector("h3").textContent,
-        html: section.querySelector(".inner-content").innerHTML.trim()
-    }]),
-  )
+        content: section.querySelector(".inner-content").innerHTML.trim()
+    })),
+     //@ts-ignore
+     )).map(section => ({ ...section, description_placement: (section?.title == 'Details') ? DESCRIPTION_PLACEMENT.MAIN : DESCRIPTION_PLACEMENT.ADJACENT }))
+
   const breadcrumbs = await page.$$eval('.page-breadcrumb.breadcrumbs li', items =>
     items.map((e: any) => e.textContent?.split('—')[0]?.trim() || '').filter(s => s),
   )
