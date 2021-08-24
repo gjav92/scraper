@@ -1,5 +1,16 @@
-spartina449: # add . to the provider name to skip all its urls
+.spartina449: # add . to the provider name to skip all its urls
   - https://www.spartina449.com/lowcountry-pearl-necklace-silver-atlantic-opal.html
-_4ocean:
+._4ocean:
   # - https://www.4ocean.com/products/hammerhead-shark-beaded-bracelet
   - https://www.4ocean.com/products/4ocean-logo-womens-v-neck-long-sleeve-t-shirt
+jansport:
+  - https://www.jansport.com/shop/en/jansport-us/carry-on-luggage/driver-8-backpack-tn89?variationId=7Y0
+  #- https://www.jansport.com/shop/en/jansport-us/laptop-tablet-backpacks/womens-agave-backpack-t70l?variationId=008
+  #- https://www.jansport.com/shop/en/jansport-us/pins/uh-oh-avocado-pin-js0a47lz?variationId=000
+  #- https://www.jansport.com/shop/en/jansport-us/laptop-tablet-backpacks/agave-backpack-t14f?variationId=008
+  #- https://www.jansport.com/shop/en/jansport-us/wheeled-backpacks/driver-8-backpack-tn89?variationId=9FL
+  #- https://www.jansport.com/shop/en/jansport-us/big-student-family/main-campus-js0a4qul?variationId=7G3
+  #- https://www.jansport.com/shop/en/jansport-us/laptop-tablet-backpacks/superbreak-plus-js0a4que?variationId=7Y8
+  #- https://www.jansport.com/shop/en/jansport-us/book-bags/gnarly-gnapsack-30-js0a47l4?variationId=6M8
+  #- https://www.jansport.com/shop/en/jansport-us/mini-backpacks/half-pint-mini-backpack-tdh6?variationId=85E
+  #- https://www.jansport.com/shop/en/jansport-us/tote-bags/larimer-crossbody-js0a4qv5?variationId=7H6
